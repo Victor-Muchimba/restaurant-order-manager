@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Restaurant Order Manager</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <header>
+        <h1>Restaurant Order Manager</h1>
+        <p>Kitchen & Order Dashboard</p>
+    </header>
+
+    <main>
+
+        <!-- Dashboard Statistics -->
+        <section class="dashboard">
+
+            <div class="stat-card">
+                <h2>0</h2>
+                <p>Pending Orders</p>
+            </div>
+
+            <div class="stat-card">
+                <h2>0</h2>
+                <p>Preparing</p>
+            </div>
+
+            <div class="stat-card">
+                <h2>0</h2>
+                <p>Ready</p>
+            </div>
+
+            <div class="stat-card">
+                <h2>K0.00</h2>
+                <p>Today's Sales</p>
+            </div>
+
+        </section>
+
+        <!-- Create Order -->
+        <section class="create-order">
+
+            <h2>Create Order</h2>
+
+            <form action="/create-order" method="POST">
+
+                <label for="customer_name">Customer Name</label>
+
+                <input
+                    type="text"
+                    id="customer_name"
+                    name="customer_name"
+                    placeholder="Enter customer name"
+                    required
+                >
+
+                <label for="item">Menu Item</label>
+
+                <select id="item" name="item">
+
+                    {% for item in menu %}
+
+                        <option value="{{ item.id }}">
+                            {{ item.name }} - K{{ item.price }}
+                        </option>
+
+                    {% endfor %}
+
+                </select>
+
+                <button type="submit">Create Order</button>
+
+            </form>
+
+        </section>
+
+        <!-- Kitchen Orders -->
+        <section class="orders">
+
+            <h2>Kitchen Orders</h2>
+
+            <div class="order-list">
+
+                {% if orders %}
+
+                    {% for order in orders %}
+
+                        <div class="order-card">
+
+                            <div>
+                                <h3>Order #{{ order.id }}</h3>
+                                <p>Customer: {{ order.customer }}</p>
+                                <p>{{ order.item }}</p>
+                            </div>
+
+                            <div>
+                                <strong>K{{ order.price }}</strong>
+                                <p>{{ order.status }}</p>
+                            </div>
+
+                        </div>
+
+                    {% endfor %}
+
+                {% else %}
+
+                    <div class="empty-state">
+                        <p>No orders yet.</p>
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+        </section>
+
+    </main>
+
+</body>
+</html>
