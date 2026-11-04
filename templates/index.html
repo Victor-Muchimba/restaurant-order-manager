@@ -22,27 +22,27 @@
         <!-- Dashboard Statistics -->
         <section class="dashboard">
 
-            <div class="stat-card">
-                <h2>0</h2>
-                <p>Pending Orders</p>
-            </div>
+    <div class="stat-card">
+        <h2>{{ pending_orders }}</h2>
+        <p>Pending Orders</p>
+    </div>
 
-            <div class="stat-card">
-                <h2>0</h2>
-                <p>Preparing</p>
-            </div>
+    <div class="stat-card">
+        <h2>{{ preparing_orders }}</h2>
+        <p>Preparing</p>
+    </div>
 
-            <div class="stat-card">
-                <h2>0</h2>
-                <p>Ready</p>
-            </div>
+    <div class="stat-card">
+        <h2>{{ ready_orders }}</h2>
+        <p>Ready</p>
+    </div>
 
-            <div class="stat-card">
-                <h2>K0.00</h2>
-                <p>Today's Sales</p>
-            </div>
+    <div class="stat-card">
+        <h2>K{{ "%.2f"|format(completed_sales) }}</h2>
+        <p>Today's Sales</p>
+    </div>
 
-        </section>
+</section>
 
         <!-- Create Order -->
         <section class="create-order">

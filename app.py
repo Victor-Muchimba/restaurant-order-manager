@@ -2,8 +2,10 @@ from flask import Flask, render_template, request, redirect
 
 app = Flask(__name__)
 
+# Temporary storage for orders
 orders = []
 
+# Restaurant menu
 menu = [
     {"id": 1, "name": "Chicken Burger", "price": 45},
     {"id": 2, "name": "Fries", "price": 20},
@@ -14,7 +16,26 @@ menu = [
 
 @app.route("/")
 def home():
-    return render_template("index.html", orders=orders, menu=menu)
+
+    pending_orders = sum(1 for order in orders if order["status"] == "Received")
+
+    preparing_orders = sum(1 for order in orders if order["status"] == "Preparing")
+
+    ready_orders = sum(1 for order in orders if order["status"] == "Ready")
+
+    completed_sales = sum(
+        order["price"] for order in orders if order["status"] == "Completed"
+    )
+
+    return render_template(
+        "index.html",
+        orders=orders,
+        menu=menu,
+        pending_orders=pending_orders,
+        preparing_orders=preparing_orders,
+        ready_orders=ready_orders,
+        completed_sales=completed_sales,
+    )
 
 
 @app.route("/create-order", methods=["POST"])
