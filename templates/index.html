@@ -92,28 +92,71 @@
 
                     {% for order in orders %}
 
-                        <div class="order-card">
+<div class="order-card">
 
-                            <div>
-                                <h3>Order #{{ order.id }}</h3>
-                                <p>Customer: {{ order.customer }}</p>
-                                <p>{{ order.item }}</p>
-                            </div>
+    <div>
+        <h3>Order #{{ order.id }}</h3>
 
-                            <div>
-                                <strong>K{{ order.price }}</strong>
-                                <p>{{ order.status }}</p>
-                            </div>
+        <p>Customer: {{ order.customer }}</p>
 
-                        </div>
+        <p>{{ order.item }}</p>
+    </div>
+
+    <div class="order-details">
+
+        <strong>K{{ order.price }}</strong>
+
+        <p>{{ order.status }}</p>
+
+        <div class="status-actions">
+
+            {% if order.status == "Received" %}
+
+                <form action="{{ url_for('update_status', order_id=order.id) }}" method="POST">
+
+                    <button type="submit" class="status-btn preparing-btn">
+                        Start Preparing
+                    </button>
+
+                </form>
+
+            {% elif order.status == "Preparing" %}
+
+                <form action="{{ url_for('update_status', order_id=order.id) }}" method="POST">
+
+                    <button type="submit" class="status-btn ready-btn">
+                        Mark as Ready
+                    </button>
+
+                </form>
+
+            {% elif order.status == "Ready" %}
+
+                <form action="{{ url_for('update_status', order_id=order.id) }}" method="POST">
+
+                    <button type="submit" class="status-btn complete-btn">
+                        Complete Order
+                    </button>
+
+                </form>
+
+            {% else %}
+
+                <p>✓ Completed</p>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</div>
 
                     {% endfor %}
 
                 {% else %}
 
-                    <div class="empty-state">
-                        <p>No orders yet.</p>
-                    </div>
+                    <p>No orders available.</p>
 
                 {% endif %}
 

@@ -260,3 +260,83 @@ main {
         padding: 20px;
     }
 }
+/* =========================
+   ORDER STATUS BUTTONS
+========================= */
+
+.order-details {
+    text-align: right;
+}
+
+.status-actions {
+    margin-top: 12px;
+}
+
+.status-actions form {
+    margin: 0;
+}
+
+.status-btn {
+    padding: 9px 16px;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.preparing-btn {
+    background: #f59e0b;
+}
+
+.preparing-btn:hover {
+    background: #d97706;
+}
+
+.ready-btn {
+    background: #16a34a;
+}
+
+.ready-btn:hover {
+    background: #15803d;
+}
+
+.complete-btn {
+    background: #0d9488;
+}
+
+.complete-btn:hover {
+    background: #0f766e;
+}
+/* MENU DROPDOWN */
+
+.create-order select {
+    width: 100%;
+    max-width: 450px;
+    padding: 15px;
+    border: 1px solid #e8d5c8;
+    border-radius: 10px;
+    background-color: #fffaf5;
+    color: #33221b;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    outline: none;
+    transition: 0.3s ease;
+}
+
+.create-order select:hover {
+    border-color: #e63928;
+}
+
+.create-order select:focus {
+    border-color: #e63928;
+    box-shadow: 0 0 0 3px rgba(230, 57, 40, 0.12);
+}
+
+.create-order select option {
+    background: white;
+    color: #33221b;
+    padding: 12px;
+}

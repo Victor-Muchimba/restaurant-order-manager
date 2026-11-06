@@ -7,10 +7,10 @@ orders = []
 
 # Restaurant menu
 menu = [
-    {"id": 1, "name": "Chicken Burger", "price": 45},
-    {"id": 2, "name": "Fries", "price": 20},
-    {"id": 3, "name": "Chicken Wings", "price": 50},
-    {"id": 4, "name": "Soft Drink", "price": 15},
+    {"id": 1, "name": "Chicken Burger", "price": 45, "requires_preparation": True},
+    {"id": 2, "name": "Fries", "price": 20, "requires_preparation": True},
+    {"id": 3, "name": "Chicken Wings", "price": 50, "requires_preparation": True},
+    {"id": 4, "name": "Soft Drink", "price": 15, "requires_preparation": False},
 ]
 
 
@@ -51,10 +51,33 @@ def create_order():
         "customer": customer_name,
         "item": selected_item["name"],
         "price": selected_item["price"],
-        "status": "Received",
+        "status": "Received" if selected_item["requires_preparation"] else "Ready",
     }
 
     orders.append(order)
+
+    return redirect("/")
+
+
+@app.route("/update-status/<int:order_id>", methods=["POST"])
+def update_status(order_id):
+
+    for order in orders:
+
+        if order["id"] == order_id:
+
+            current_status = order["status"]
+
+            status_transitions = {
+                "Received": "Preparing",
+                "Preparing": "Ready",
+                "Ready": "Completed",
+            }
+
+            if current_status in status_transitions:
+                order["status"] = status_transitions[current_status]
+
+            break
 
     return redirect("/")
 
